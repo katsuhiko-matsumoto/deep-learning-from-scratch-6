@@ -229,6 +229,25 @@ class GPT(nn.Module):
         }
         torch.save(checkpoint, file_path)
 
+    def load_model():
+        print("#call model_load from saved checkpoint.");
+        checkpoint = torch.load(file_path);
+        model = cls(
+            model_state_dict=checkpoint['model_state_dict'],
+            vocab_size=checkpoint['vocab_size'],
+            max_context_len=checkpoint['max_context_len'],
+            embed_dim=checkpoint['embed_dim'],
+            n_head=checkpoint['n_head'],
+            n_layer=checkpoint['n_layer'],
+            ff_dim=checkpoint['ff_dim'],
+            theta=checkpoint['theta']
+        )
+
+        model.load_state_dict(checkpoint['model_state_dict'])
+        model.to(device)
+
+        return model
+
     @classmethod
     def load_from(cls, file_path, device='cpu'):
         checkpoint = torch.load(file_path, map_location=device)

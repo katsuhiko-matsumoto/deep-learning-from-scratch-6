@@ -12,6 +12,9 @@ from storybot.model import GPT
 from storybot.tokenizer import BPETokenizer
 from storybot.utils import get_device
 
+parser = argparse.ArgumentParser(description='PIX2PIX')
+parser.add_argument('--runmode', help='rum mode [again], again=start from checkpoint. choices=['again'])
+
 
 def get_lr(it, max_lr, warmup_iters, max_iters):
     # ウォームアップ：0 -> max_lr
@@ -99,6 +102,7 @@ save_iters = [500,1000,1500,2000, 5000]  # 保存するイテレーションの�
 train_data = np.memmap(data_path, dtype=np.uint16, mode='r')
 val_data = np.memmap(val_data_path, dtype=np.uint16, mode='r')
 
+
 # トークナイザ、モデル、オプティマイザ
 tokenizer = BPETokenizer.load_from(tokenizer_path)
 model = GPT(
@@ -108,6 +112,9 @@ optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate)
 
 total_params = sum(p.numel() for p in model.parameters())
 print(f"パラメータ数: {total_params:,} ({total_params/1e6:.1f}M)")
+
+if args.runmode == 'again':
+    model.load_model(model_save_path)
 
 pbar = tqdm(range(max_iters))
 
