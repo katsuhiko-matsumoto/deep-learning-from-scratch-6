@@ -14,13 +14,11 @@ from storybot.utils import get_device
 import argparse
 
 #途中から再開する場合の学習済みセーブファイルおパス
-parser = argparse.ArgumentParser(description='savefile')
+parser = argparse.ArgumentParser(description='learning option')
 parser.add_argument('--again', help='--again checkpoint_filename')
 #学習を分割する場合、分割したものを含めた全体のいてレーション回数
-parser = argparse.ArgumentParser(description='maxitr')
 parser.add_argument('--maxitr', help='--maxitr max iteration')
 #が句集を途中から再開する場合、続きのいてレーション数（今まで終了したレーション数）
-parser = argparse.ArgumentParser(description='nextitr')
 parser.add_argument('--nextitr', help='--nextitr nextitr')
 
 print(parser.parse_args().again)
