@@ -52,7 +52,7 @@ def evaluate(model, val_data, context_len, batch_size, device):
     num_batches = (max_start // context_len) // batch_size + 1
 
     with torch.no_grad():
-        for batch_idx in tqdm(range(num_batches), desc="Validation"):
+        for batch_idx in range(num_batches):
             offset = batch_idx * batch_size * context_len
 
             x, y = get_batch(val_data, context_len, batch_size, device,
@@ -93,7 +93,7 @@ ff_dim = 1344
 theta = 10000
 eval_iters = 500
 grad_clip = 1.0
-save_iters = [500, 5000]  # 保存するイテレーションのリスト
+save_iters = [500,1000,1500,2000, 5000]  # 保存するイテレーションのリスト
 
 # データをmemmapで読み込み
 train_data = np.memmap(data_path, dtype=np.uint16, mode='r')
