@@ -140,7 +140,7 @@ val_iters = []
 
 it_cnt = 0
 mx_itrs = max_iters
-for i in pbar
+for i in pbar:
     #途中再開の場合、引数から値を取って学習率を調整
     if i == 0 and nextitr != 0:
         it_cnt = nextitr
