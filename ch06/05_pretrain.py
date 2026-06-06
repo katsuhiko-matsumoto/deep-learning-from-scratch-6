@@ -11,9 +11,10 @@ import matplotlib.pyplot as plt
 from storybot.model import GPT
 from storybot.tokenizer import BPETokenizer
 from storybot.utils import get_device
+import argparse
 
 parser = argparse.ArgumentParser(description='PIX2PIX')
-parser.add_argument('--runmode', help='rum mode [again], again=start from checkpoint. choices=['again'])
+parser.add_argument('--again', help='--again checkpoint_filename')
 
 
 def get_lr(it, max_lr, warmup_iters, max_iters):
@@ -113,8 +114,8 @@ optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate)
 total_params = sum(p.numel() for p in model.parameters())
 print(f"パラメータ数: {total_params:,} ({total_params/1e6:.1f}M)")
 
-if args.runmode == 'again':
-    model.load_model(model_save_path)
+if args.again != none:
+    model.load_model(args.again)
 
 pbar = tqdm(range(max_iters))
 

@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-
+import argparse
 
 class RoPE(nn.Module):
     def __init__(self, theta, key_dim, max_context_len):
@@ -229,9 +229,9 @@ class GPT(nn.Module):
         }
         torch.save(checkpoint, file_path)
 
-    def load_model():
-        print("#call model_load from saved checkpoint.");
-        checkpoint = torch.load(file_path);
+    def load_model(path):
+        print("#call model_load from saved checkpoint:"+path);
+        checkpoint = torch.load(path);
         model = cls(
             model_state_dict=checkpoint['model_state_dict'],
             vocab_size=checkpoint['vocab_size'],
