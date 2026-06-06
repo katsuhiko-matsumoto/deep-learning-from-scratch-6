@@ -114,8 +114,8 @@ optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate)
 total_params = sum(p.numel() for p in model.parameters())
 print(f"パラメータ数: {total_params:,} ({total_params/1e6:.1f}M)")
 
-if args.again != none:
-    model.load_model(args.again)
+if parser.parse_args().again != none:
+    model.load_model(parser.parse_args().again)
 
 pbar = tqdm(range(max_iters))
 
