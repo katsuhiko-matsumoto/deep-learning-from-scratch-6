@@ -229,7 +229,7 @@ class GPT(nn.Module):
         }
         torch.save(checkpoint, file_path)
 
-    def load_model(path):
+    def load_model(self, path):
         print("#call model_load from saved checkpoint:"+path);
         checkpoint = torch.load(path);
         model = cls(

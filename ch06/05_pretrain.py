@@ -16,6 +16,7 @@ import argparse
 parser = argparse.ArgumentParser(description='PIX2PIX')
 parser.add_argument('--again', help='--again checkpoint_filename')
 
+print(parser.parse_args().again)
 
 def get_lr(it, max_lr, warmup_iters, max_iters):
     # ウォームアップ：0 -> max_lr
@@ -106,6 +107,7 @@ val_data = np.memmap(val_data_path, dtype=np.uint16, mode='r')
 
 # トークナイザ、モデル、オプティマイザ
 tokenizer = BPETokenizer.load_from(tokenizer_path)
+#exit()
 model = GPT(
     vocab_size, context_len, embed_dim, n_head, n_layer, ff_dim, theta
 ).to(device)
