@@ -21,7 +21,9 @@ parser.add_argument('--maxitr', help='--maxitr max iteration')
 #が句集を途中から再開する場合、続きのいてレーション数（今まで終了したレーション数）
 parser.add_argument('--nextitr', help='--nextitr nextitr')
 
-print(parser.parse_args().again)
+print("savefile:"+parser.parse_args().again)
+print("max itr:"+parser.parse_args().maxitr)
+print("next itr:"+parser.parse_args().nextitr)
 
 def get_lr(it, max_lr, warmup_iters, max_iters):
     # ウォームアップ：0 -> max_lr
