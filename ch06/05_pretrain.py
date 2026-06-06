@@ -98,7 +98,7 @@ ff_dim = 1344
 theta = 10000
 eval_iters = 500
 grad_clip = 1.0
-save_iters = [5,500,1000,1500,2000, 5000]  # 保存するイテレーションのリスト
+save_iters = [5000,7000,8000,9000]  # 保存するイテレーションのリスト
 
 # データをmemmapで読み込み
 train_data = np.memmap(data_path, dtype=np.uint16, mode='r')
