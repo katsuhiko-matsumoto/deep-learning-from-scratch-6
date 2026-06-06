@@ -13,8 +13,15 @@ from storybot.tokenizer import BPETokenizer
 from storybot.utils import get_device
 import argparse
 
-parser = argparse.ArgumentParser(description='PIX2PIX')
+#途中から再開する場合の学習済みセーブファイルおパス
+parser = argparse.ArgumentParser(description='savefile')
 parser.add_argument('--again', help='--again checkpoint_filename')
+#学習を分割する場合、分割したものを含めた全体のいてレーション回数
+parser = argparse.ArgumentParser(description='maxitr')
+parser.add_argument('--maxitr', help='--maxitr max iteration')
+#が句集を途中から再開する場合、続きのいてレーション数（今まで終了したレーション数）
+parser = argparse.ArgumentParser(description='nextitr')
+parser.add_argument('--nextitr', help='--nextitr nextitr')
 
 print(parser.parse_args().again)
 
@@ -116,8 +123,14 @@ optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate)
 total_params = sum(p.numel() for p in model.parameters())
 print(f"パラメータ数: {total_params:,} ({total_params/1e6:.1f}M)")
 
+maxitr = 0
+nextitr = 0
 if parser.parse_args().again != None:
     model.load_model(parser.parse_args().again)
+if parser.parse_args().maxitr != None:
+    maxitr = int(parser.parse_args().maxitr)
+if parser.parse_args().nextitr != None:
+    nextitr = int(parser.parse_args().nextitr)
 
 pbar = tqdm(range(max_iters))
 
@@ -125,9 +138,17 @@ val_loss = float('inf')
 val_losses = []
 val_iters = []
 
-for i in pbar:
+it_cnt = 0
+mx_itrs = max_iters
+for i in pbar
+    #途中再開の場合、引数から値を取って学習率を調整
+    if i == 0 and nextitr != 0:
+        it_cnt = nextitr
+    if i ==0 and maxitr != 0:
+        mx_itrs = maxitr
+
     # 学習率を更新
-    lr = get_lr(i, learning_rate, warmup_iters, max_iters)
+    lr = get_lr(it_cnt, learning_rate, warmup_iters, mx_itrs)
     for param_group in optimizer.param_groups:
         param_group['lr'] = lr
 
@@ -156,7 +177,7 @@ for i in pbar:
         val_losses.append(val_loss)
         val_iters.append(i)
     pbar.set_postfix({'loss': f'{loss.item():.4f}', 'val_loss': f'{val_loss:.6f}'})
-
+    it_cnt = it_cnt+1
 
 # Validation lossのグラフを描画
 plt.figure(figsize=(10, 6))
