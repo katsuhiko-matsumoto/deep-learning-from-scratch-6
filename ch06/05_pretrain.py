@@ -181,7 +181,8 @@ for i in pbar:
         val_loss = evaluate(model, val_data, context_len, batch_size, device)
         val_losses.append(val_loss)
         val_iters.append(i)
-    pbar.set_postfix({'loss': f'{loss.item():.4f}', 'val_loss': f'{val_loss:.6f}'})
+    pbar.set_postfix({'loss': f'{loss.item():.4f}', 'val_loss': f'{val_loss:.6f}'
+        , 'lr': f'{lr:.6f}'})
     it_cnt = it_cnt+1
 
 # Validation lossのグラフを描画
