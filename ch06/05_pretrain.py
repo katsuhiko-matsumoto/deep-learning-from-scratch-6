@@ -132,7 +132,7 @@ if parser.parse_args().nextitr != None:
     nextitr = int(parser.parse_args().nextitr)
 #途中再開の場合、引数から値を取って学習率を調整
 it_cnt = 0
-mx_itrs 0
+mx_itrs = 0
 if nextitr != 0:
     it_cnt = nextitr
 if maxitr != 0:
