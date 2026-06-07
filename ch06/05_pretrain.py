@@ -132,12 +132,14 @@ if parser.parse_args().nextitr != None:
     nextitr = int(parser.parse_args().nextitr)
 #途中再開の場合、引数から値を取って学習率を調整
 it_cnt = 0
-mx_itrs = max_iters
+mx_itrs 0
 if nextitr != 0:
     it_cnt = nextitr
 if maxitr != 0:
     mx_itrs = maxitr
-
+else:
+    mx_itrs = max_iters
+print("it_cnt:"+it_cnt+" mx_itrs:"+mx_itrs)
 optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate)
 
 total_params = sum(p.numel() for p in model.parameters())
