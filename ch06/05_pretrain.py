@@ -93,7 +93,7 @@ device = get_device()
 data_path = 'storybot/tiny_stories_train.bin'
 val_data_path = 'storybot/tiny_stories_valid.bin'
 tokenizer_path = 'storybot/merge_rules.pkl'
-model_save_path = add_ggl_drive_path+'storybot/model_pretrain.pt'
+model_save_path = add_ggl_drive_path+'model_pretrain.pt'
 
 
 
@@ -175,7 +175,7 @@ for i in pbar:
     optimizer.step()
     # 特定のイテレーションでモデルを保存
     if i in save_iters:
-        save_path = add_ggl_drive_path+f'storybot/model_iter_{i}.pt'
+        save_path = add_ggl_drive_path+f'model_iter_{i}.pt'
         model.save(save_path)
         print(f"\nモデルを保存しました（イテレーション {i}）: {save_path}")
 
