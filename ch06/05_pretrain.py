@@ -139,7 +139,7 @@ if maxitr != 0:
     mx_itrs = maxitr
 else:
     mx_itrs = max_iters
-print("it_cnt:"+it_cnt+" mx_itrs:"+mx_itrs)
+print("it_cnt:"+str(it_cnt)+" mx_itrs:"+str(mx_itrs))
 optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate)
 
 total_params = sum(p.numel() for p in model.parameters())
