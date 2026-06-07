@@ -121,19 +121,27 @@ tokenizer = BPETokenizer.load_from(tokenizer_path)
 model = GPT(
     vocab_size, context_len, embed_dim, n_head, n_layer, ff_dim, theta
 ).to(device)
-optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate)
-
-total_params = sum(p.numel() for p in model.parameters())
-print(f"パラメータ数: {total_params:,} ({total_params/1e6:.1f}M)")
-
 maxitr = 0
 nextitr = 0
 if parser.parse_args().again != None:
-    model.load_model(parser.parse_args().again)
+    model.load_from(parser.parse_args().again)
+    print("#load model!")
 if parser.parse_args().maxitr != None:
     maxitr = int(parser.parse_args().maxitr)
 if parser.parse_args().nextitr != None:
     nextitr = int(parser.parse_args().nextitr)
+#途中再開の場合、引数から値を取って学習率を調整
+it_cnt = 0
+mx_itrs = max_iters
+if nextitr != 0:
+    it_cnt = nextitr
+if maxitr != 0:
+    mx_itrs = maxitr
+
+optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate)
+
+total_params = sum(p.numel() for p in model.parameters())
+print(f"パラメータ数: {total_params:,} ({total_params/1e6:.1f}M)")
 
 pbar = tqdm(range(max_iters))
 
@@ -141,15 +149,7 @@ val_loss = float('inf')
 val_losses = []
 val_iters = []
 
-it_cnt = 0
-mx_itrs = max_iters
 for i in pbar:
-    #途中再開の場合、引数から値を取って学習率を調整
-    if i == 0 and nextitr != 0:
-        it_cnt = nextitr
-    if i ==0 and maxitr != 0:
-        mx_itrs = maxitr
-
     # 学習率を更新
     lr = get_lr(it_cnt, learning_rate, warmup_iters, mx_itrs)
     for param_group in optimizer.param_groups:
