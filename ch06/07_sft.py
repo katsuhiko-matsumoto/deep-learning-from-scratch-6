@@ -9,9 +9,9 @@ import torch.nn.functional as F
 from torch.utils.data import DataLoader, Dataset
 import matplotlib.pyplot as plt
 from tqdm import tqdm
-from codebot.model import GPT
-from codebot.tokenizer import BPETokenizer
-from codebot.utils import get_device
+from storybot.model import GPT
+from storybot.tokenizer import BPETokenizer
+from storybot.utils import get_device
 
 # 設定
 device = get_device()

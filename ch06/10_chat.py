@@ -2,9 +2,9 @@ import os, sys
 os.chdir(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
 sys.path.append('.')
 
-from codebot.model import GPT
-from codebot.tokenizer import BPETokenizer
-from codebot.utils import generate, get_device
+from storybot.model import GPT
+from storybot.tokenizer import BPETokenizer
+from storybot.utils import generate, get_device
 
 # 設定
 device = get_device()
